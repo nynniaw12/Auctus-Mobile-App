@@ -13,7 +13,7 @@ struct AuctusApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DiagnoseCarView(viewModel: diagnoseCarViewmodel)
                 .environmentObject(diagnoseCarViewmodel)
         }
     }
