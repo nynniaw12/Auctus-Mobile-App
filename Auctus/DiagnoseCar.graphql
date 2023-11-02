@@ -1,0 +1,8 @@
+query DiagnoseCar($carInfo: [String!]!) {
+  diagnoseCar(carInfo: $carInfo) {
+    diagnosis
+    part
+    expl
+    estimate
+  }
+}
