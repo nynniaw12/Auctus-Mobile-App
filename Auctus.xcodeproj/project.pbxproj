@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		2935E95E2AF437AF00D45EFC /* DiagnoseCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935E95D2AF437AF00D45EFC /* DiagnoseCarView.swift */; };
 		2987FE082AF416E3006467A9 /* Preview in Resources */ = {isa = PBXBuildFile; fileRef = 2987FE072AF416E3006467A9 /* Preview */; };
+		29942F3F2AF5D15F0087B966 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F352AF5D0EA0087B966 /* Inter-Medium.ttf */; };
+		29942F402AF5D1610087B966 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F362AF5D0EA0087B966 /* Rubik-Bold.ttf */; };
+		29942F412AF5D1660087B966 /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F392AF5D0EA0087B966 /* Rubik-Light.ttf */; };
+		29942F422AF5D1660087B966 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F3E2AF5D0EA0087B966 /* Inter-SemiBold.ttf */; };
+		29942F432AF5D1660087B966 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F3A2AF5D0EA0087B966 /* Rubik-Medium.ttf */; };
+		29942F442AF5D1660087B966 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F3B2AF5D0EA0087B966 /* Inter-Regular.ttf */; };
+		29942F452AF5D1660087B966 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F382AF5D0EA0087B966 /* Inter-Bold.ttf */; };
+		29942F462AF5D1660087B966 /* Rubik-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F3C2AF5D0EA0087B966 /* Rubik-SemiBold.ttf */; };
+		29942F472AF5D1660087B966 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F3D2AF5D0EA0087B966 /* Rubik-Regular.ttf */; };
+		29942F482AF5D1660087B966 /* Inter-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29942F372AF5D0EA0087B966 /* Inter-Light.ttf */; };
 		374B45FA2AF361690015356A /* AuctusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B45F92AF361690015356A /* AuctusApp.swift */; };
 		374B45FC2AF361690015356A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B45FB2AF361690015356A /* ContentView.swift */; };
 		374B45FE2AF3616B0015356A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 374B45FD2AF3616B0015356A /* Assets.xcassets */; };
@@ -23,6 +33,17 @@
 /* Begin PBXFileReference section */
 		2935E95D2AF437AF00D45EFC /* DiagnoseCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnoseCarView.swift; sourceTree = "<group>"; };
 		2987FE072AF416E3006467A9 /* Preview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Preview; sourceTree = "<group>"; };
+		29942F352AF5D0EA0087B966 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
+		29942F362AF5D0EA0087B966 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
+		29942F372AF5D0EA0087B966 /* Inter-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Light.ttf"; sourceTree = "<group>"; };
+		29942F382AF5D0EA0087B966 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
+		29942F392AF5D0EA0087B966 /* Rubik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Light.ttf"; sourceTree = "<group>"; };
+		29942F3A2AF5D0EA0087B966 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
+		29942F3B2AF5D0EA0087B966 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
+		29942F3C2AF5D0EA0087B966 /* Rubik-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-SemiBold.ttf"; sourceTree = "<group>"; };
+		29942F3D2AF5D0EA0087B966 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
+		29942F3E2AF5D0EA0087B966 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
+		29942F492AF5D1ED0087B966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		374B45F62AF361690015356A /* Auctus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Auctus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		374B45F92AF361690015356A /* AuctusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuctusApp.swift; sourceTree = "<group>"; };
 		374B45FB2AF361690015356A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -46,6 +67,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29942F342AF5D0EA0087B966 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				29942F352AF5D0EA0087B966 /* Inter-Medium.ttf */,
+				29942F362AF5D0EA0087B966 /* Rubik-Bold.ttf */,
+				29942F372AF5D0EA0087B966 /* Inter-Light.ttf */,
+				29942F382AF5D0EA0087B966 /* Inter-Bold.ttf */,
+				29942F392AF5D0EA0087B966 /* Rubik-Light.ttf */,
+				29942F3A2AF5D0EA0087B966 /* Rubik-Medium.ttf */,
+				29942F3B2AF5D0EA0087B966 /* Inter-Regular.ttf */,
+				29942F3C2AF5D0EA0087B966 /* Rubik-SemiBold.ttf */,
+				29942F3D2AF5D0EA0087B966 /* Rubik-Regular.ttf */,
+				29942F3E2AF5D0EA0087B966 /* Inter-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		374B45ED2AF361690015356A = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +103,7 @@
 		374B45F82AF361690015356A /* Auctus */ = {
 			isa = PBXGroup;
 			children = (
+				29942F492AF5D1ED0087B966 /* Info.plist */,
 				374B46242AF37FD90015356A /* API.swift */,
 				374B46182AF370030015356A /* schema.json */,
 				374B461A2AF374F20015356A /* DiagnoseCar.graphql */,
@@ -74,6 +113,7 @@
 				374B46262AF383100015356A /* Network.swift */,
 				374B46282AF3839E0015356A /* DiagnoseCarViewmodel.swift */,
 				2935E95D2AF437AF00D45EFC /* DiagnoseCarView.swift */,
+				29942F342AF5D0EA0087B966 /* Fonts */,
 				2987FE072AF416E3006467A9 /* Preview */,
 			);
 			path = Auctus;
@@ -144,8 +184,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				374B461B2AF374F20015356A /* DiagnoseCar.graphql in Resources */,
+				29942F402AF5D1610087B966 /* Rubik-Bold.ttf in Resources */,
+				29942F452AF5D1660087B966 /* Inter-Bold.ttf in Resources */,
+				29942F462AF5D1660087B966 /* Rubik-SemiBold.ttf in Resources */,
 				2987FE082AF416E3006467A9 /* Preview in Resources */,
 				374B46192AF370030015356A /* schema.json in Resources */,
+				29942F482AF5D1660087B966 /* Inter-Light.ttf in Resources */,
+				29942F422AF5D1660087B966 /* Inter-SemiBold.ttf in Resources */,
+				29942F3F2AF5D15F0087B966 /* Inter-Medium.ttf in Resources */,
+				29942F442AF5D1660087B966 /* Inter-Regular.ttf in Resources */,
+				29942F432AF5D1660087B966 /* Rubik-Medium.ttf in Resources */,
+				29942F472AF5D1660087B966 /* Rubik-Regular.ttf in Resources */,
+				29942F412AF5D1660087B966 /* Rubik-Light.ttf in Resources */,
 				374B45FE2AF3616B0015356A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +348,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Auctus/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -326,6 +377,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Auctus/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

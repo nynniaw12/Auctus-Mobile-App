@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct AuctusApp: App {
     @StateObject var diagnoseCarViewmodel = DiagnoseCarViewmodel()
-    
+        
     var body: some Scene {
         WindowGroup {
-            DiagnoseCarView(viewModel: diagnoseCarViewmodel)
-                .environmentObject(diagnoseCarViewmodel)
+            ContentView()
+                .environmentObject(diagnoseCarViewmodel) // if you want to use the same ViewModel across your app
+                .preferredColorScheme(.dark)
         }
     }
 }
+
