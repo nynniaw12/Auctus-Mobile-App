@@ -14,7 +14,7 @@ struct AuctusApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(diagnoseCarViewmodel) // if you want to use the same ViewModel across your app
+                .environmentObject(diagnoseCarViewmodel)
                 .preferredColorScheme(.dark)
         }
     }

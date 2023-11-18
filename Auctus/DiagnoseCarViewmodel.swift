@@ -9,7 +9,10 @@ import Foundation
 import Apollo
 import Combine
 
+// HANDLE DIAGNOSIS QUERY
 final class DiagnoseCarViewmodel: ObservableObject {
+        @Published var isLoading: Bool = false
+    
         @Published var isNavigatingToIssueDetails = false
         @Published var carMake = ""
         @Published var carModel = ""
@@ -61,11 +64,19 @@ final class DiagnoseCarViewmodel: ObservableObject {
         @Published var overheatSpeed = ""
         @Published var overheatWeather = ""
         @Published var coolantLevel = ""
+    
+    
+        @Published var diagnosis: String?
+        @Published var part: String?
+        @Published var expl: String?
+        @Published var estimate: String?
+        @Published var fetchError: String?
+    
         var warningLightsText: String {
             warningLights.joined(separator: ", ")
         }
     
-    func submitForm() {
+    func submitForm(completion: @escaping () -> Void) {
         let carInfo = [
             carMake,
             carModel,
@@ -119,21 +130,31 @@ final class DiagnoseCarViewmodel: ObservableObject {
             coolantLevel
         ]
             
-        fetch(carInfo: carInfo)
+        fetch(carInfo: carInfo){
+            completion()
+        }
     }
     
     
-    private func fetch(carInfo: [String]) {
-        Network.shared.apollo.fetch(query: DiagnoseCarQuery(carInfo: carInfo)) { result in // Change the query name to your query name
-            switch result {
-            case .success(let graphQLResult):
-                if let diagnosis = graphQLResult.data?.diagnoseCar?.diagnosis {
-                    print("Diagnosis: \(diagnosis)")
-                }
-            case .failure(let error):
-                print("Error: \(error)")
+    private func fetch(carInfo: [String], completion: @escaping () -> Void) {
+        Network.shared.apollo.fetch(query: DiagnoseCarQuery(carInfo: carInfo)) { [weak self] result in
+             switch result {
+             case .success(let graphQLResult):
+                 DispatchQueue.main.async {
+                     self?.diagnosis = graphQLResult.data?.diagnoseCar?.diagnosis
+                     self?.part = graphQLResult.data?.diagnoseCar?.part
+                     self?.expl = graphQLResult.data?.diagnoseCar?.expl
+                     self?.estimate = graphQLResult.data?.diagnoseCar?.estimate
+                 }
+             case .failure(let error):
+                 DispatchQueue.main.async {
+                     self?.fetchError = error.localizedDescription
+                 }
             }
-        }
+            DispatchQueue.main.async {
+                completion()
+            }
+         }
     }
 
 }

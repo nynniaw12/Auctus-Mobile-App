@@ -2,17 +2,18 @@
 //  DiagnoseCarView.swift
 //  Auctus
 //
-//  Created by user249296 on 11/2/23.
+//  Created by Hasan Aybars Ari on 11/2/23.
 //
 
 import Foundation
-
 import SwiftUI
-
 import Combine
-extension Color {
-    static let darkGray = Color(red: 0.25, green: 0.25, blue: 0.25)
-}
+
+
+extension Color {static let darkGray = Color(red: 0.25, green: 0.25, blue: 0.25)}
+
+
+// DIAGNOSIS VIEW
 struct DiagnoseCarView: View {
     @ObservedObject var viewModel: DiagnoseCarViewmodel
     
@@ -22,9 +23,6 @@ struct DiagnoseCarView: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    
-
-                    
                     VStack(alignment: .leading, spacing: 20) {
                         Text("Something wrong with your ride?")
                             .foregroundColor(.white)
@@ -63,26 +61,19 @@ struct DiagnoseCarView: View {
                                     .onAppear {UITableViewCell.appearance().backgroundColor = UIColor.clear
                                         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "Inter-Bold", size: 34)!]
                                         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: "Inter-Bold", size: 20)!]
-                                        // For selected segment
                                         UISegmentedControl.appearance().setTitleTextAttributes(
                                             [
                                                 .font: UIFont(name: "Inter-Bold", size: 16) ?? UIFont.systemFont(ofSize: 16),
                                             ], for: .selected)
 
-                                        // For normal (unselected) segment
                                         UISegmentedControl.appearance().setTitleTextAttributes(
                                             [
                                                 .font: UIFont(name: "Inter-Medium", size: 12) ?? UIFont.systemFont(ofSize: 12),
                                             ], for: .normal)
-}
-
-                                
-                                
+                                    }
                                 Spacer()
-                                
                             }
                             .padding(.bottom, 5)
-                            
                         }
                         .padding()
                         .background(
@@ -93,11 +84,9 @@ struct DiagnoseCarView: View {
                         )
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .cornerRadius(25)
-                        
                         Text("Car Parts Categories")
                             .foregroundColor(.white)
                             .font(.custom("Inter-Bold", size: 28))
-                        // Horizontal slider
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 CategoryView(iconName: "bolt.fill", text: "Electrical", backgroundColor: Color.darkGray, borderColor: Color.darkGray)
@@ -108,6 +97,7 @@ struct DiagnoseCarView: View {
                                     .frame(width: 130, height: 75)
                                 CategoryView(iconName: "gear", text: "Engine", backgroundColor: .black, borderColor: Color.darkGray)
                                     .frame(width: 130, height: 75)
+                                // Handle parts action
                             }
                         }
                         HStack{
@@ -121,11 +111,7 @@ struct DiagnoseCarView: View {
                         }
                     }
                     .padding()
-                    
                     Spacer()
-                    
-                    // Bottom bar
-                    
                 }
             }
             .background(Color.black.edgesIgnoringSafeArea(.all))
@@ -137,69 +123,105 @@ struct DiagnoseCarView: View {
 }
 
 
-
-
+// SUBMIT FORM VIEW
 struct IssueDetailsView: View {
     @ObservedObject var viewModel: DiagnoseCarViewmodel
-            
+    @State private var showingSubmissionAlert = false
     var body: some View {
-        Form {
-            Section(header: Text("Issue Description")) {
-                TextEditor(text: $viewModel.issueDescription)
-                    .frame(minHeight: 100) // Set a minimum height
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.clear, lineWidth: 1)
-                    )
-            }
-            Section(header: Text("Issue Frequency")) {
-                Picker("Issue Frequency", selection: $viewModel.issueFrequency) {
-                    Text("Frequently").tag("Frequently")
-                    Text("Sometimes").tag("Sometimes")
-                    Text("Rarely").tag("Rarely")
+        ZStack {
+            Form {
+                Section(header: Text("Issue Description")) {
+                    TextEditor(text: $viewModel.issueDescription)
+                        .frame(minHeight: 100)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.clear, lineWidth: 1)
+                        )
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .scaleEffect(x:1.1, y:1.1)
-            }
-            .listRowBackground(Color.clear)
-            Section{
-                HStack{
-                    Spacer()
-                    Button("Submit Form") {
-                        viewModel.submitForm()
+                Section(header: Text("Issue Frequency")) {
+                    Picker("Issue Frequency", selection: $viewModel.issueFrequency) {
+                        Text("Frequently").tag("Frequently")
+                        Text("Sometimes").tag("Sometimes")
+                        Text("Rarely").tag("Rarely")
                     }
-                    .buttonStyle(GreenButtonStyle())
-                    .font(.custom("Rubik-Medium", size: 22))
-                    Spacer()
+                    .pickerStyle(SegmentedPickerStyle())
+                    .scaleEffect(x:1.1, y:1.1)
                 }
-                
+                .listRowBackground(Color.clear)
+                Section {
+                    HStack {
+                        Spacer()
+                        Button("Submit Form") {
+                            viewModel.isLoading = true
+                            viewModel.submitForm {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    viewModel.isLoading = false
+                                    showingSubmissionAlert = true
+                                }
+                            }
+                        }
+                        .buttonStyle(GreenButtonStyle())
+                        .font(.custom("Rubik-Medium", size: 22))
+                        Spacer()
+                    }
+                }
+                .listRowBackground(Color.clear)
             }
-            .listRowBackground(Color.clear)
-            
+            .alert(isPresented: $showingSubmissionAlert) {
+                Alert(
+                    title: Text("Submission Result"),
+                    message: Text(submissionResultMessage()),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+            .navigationTitle("What is the issue?")
+            .font(.custom("Inter-Bold", size: 14))
+
         }
-        .navigationTitle("What is the issue?")
-        .font(.custom("Inter-Bold", size: 14))
-        
-        Spacer()
+    }
+
+    private func submissionResultMessage() -> String {
+        if let error = viewModel.fetchError {
+            return "Error: \(error)"
+        } else {
+            var message = ""
+            if let diagnosis = viewModel.diagnosis {
+                message += "Diagnosis: \(diagnosis)\n\n"
+            }
+            if let part = viewModel.part {
+                message += "Part: \(part)\n\n"
+            }
+            if let expl = viewModel.expl {
+                message += "Explanation: \(expl)\n\n"
+            }
+            if let estimate = viewModel.estimate {
+                message += "Estimate: \(estimate)"
+            }
+            return message.isEmpty ? "No data available." : message
+        }
     }
 }
 
 
-
-
-struct GreenButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .foregroundColor(.white)
-            .padding(.vertical, 5) // maintain the vertical padding of 10
-            .padding(.horizontal, 50)
-            .background(Color.green)
-            .cornerRadius(30)
-            .scaleEffect(configuration.isPressed ? 0.95 : 1)
+// LOADING WHILE DIAGNOSIS
+struct LoadingView: View {
+    var body: some View {
+        VStack {
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle())
+                .scaleEffect(1.5)
+                .padding()
+            Text("Loading...")
+                .font(.headline)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.gray.opacity(0.5))
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
-// Category view for the horizontal slider
+
+// CUSTOM STYLING
 struct CategoryView: View {
     var iconName: String
     var text: String
@@ -211,38 +233,47 @@ struct CategoryView: View {
             Image(systemName: iconName)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 30, height: 30) // Smaller icon size
+                .frame(width: 30, height: 30)
                 .foregroundColor(.white)
-                .padding(.top, 10) // Padding at the top of the icon
+                .padding(.top, 10)
 
-            Spacer(minLength: 8) // Space between the icon and the text
+            Spacer(minLength: 8)
 
             Text(text)
                 .font(.custom("Inter-Bold", size: 15))
                 .foregroundColor(.white)
-                .padding(.horizontal, 10) // Horizontal padding for the text
-                .padding(.bottom, 10) // Padding at the bottom of the text
+                .padding(.horizontal, 10)
+                .padding(.bottom, 10)
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity) // Expand to all available space within the parent's frame
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .background(backgroundColor)
         .cornerRadius(20)
         .overlay(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(borderColor, lineWidth: 2)
         )
-        .padding(.horizontal, 10) // Padding around the entire view to separate from other elements
+        .padding(.horizontal, 10)
     }
 }
 
 
+struct GreenButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.white)
+            .padding(.vertical, 5)
+            .padding(.horizontal, 50)
+            .background(Color.green)
+            .cornerRadius(30)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1)
+    }
+}
 
 
-
-
+// PREVIEW
 struct DiagnoseCarView_Previews: PreviewProvider {
     static var previews: some View {
-        // Inject your mock ViewModel here
         DiagnoseCarView(viewModel: DiagnoseCarViewmodel())
-            .preferredColorScheme(.dark) // Set the color scheme for the preview
+            .preferredColorScheme(.dark)
     }
 }
