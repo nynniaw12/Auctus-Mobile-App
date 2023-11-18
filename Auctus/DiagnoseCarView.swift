@@ -23,37 +23,7 @@ struct DiagnoseCarView: View {
             ScrollView {
                 VStack {
                     
-                    
-                    
-                    
-                    //                    TextField("Issue Type", text: $viewModel.issueType)
-                    //                    TextField("Issue Description", text: $viewModel.issueDescription)
-                    //
-                    //                    Toggle("Unusual Noises/Smells", isOn: Binding(get: {
-                    //                        self.viewModel.unusualNoisesSmellsCheck == "Yes"
-                    //                    }, set: {
-                    //                        self.viewModel.unusualNoisesSmellsCheck = $0 ? "Yes" : "No"
-                    //                    }))
-                    //
-                    //                    if viewModel.unusualNoisesSmellsCheck == "Yes" {
-                    //                        TextField("Describe Unusual Noises/Smells", text: $viewModel.unusualNoisesSmells)
-                    //                    }
-                    //
-                    //                    Picker("Issue Frequency", selection: $viewModel.issueFrequency) {
-                    //                        Text("Frequently").tag("Frequently")
-                    //                        Text("Sometimes").tag("Sometimes")
-                    //                        Text("Rarely").tag("Rarely")
-                    //                    }.pickerStyle(SegmentedPickerStyle())
-                    //
-                    //                    NavigationLink(destination: WarningLightsSelectionView(viewModel: viewModel, allWarningLights: allWarningLights)) {
-                    //                        Text("Select Warning Lights")
-                    //                    }
-                    
-                    // ... Other UI components
-                    
-                    //                    Button(action: viewModel.submitForm) {
-                    //                        Text("Submit")
-                    //                    }
+
                     
                     VStack(alignment: .leading, spacing: 20) {
                         Text("Something wrong with your ride?")
@@ -66,13 +36,12 @@ struct DiagnoseCarView: View {
                                 .font(.custom("Rubik-Bold", size: 32))
                             
                             HStack {
-                                Image(systemName: "clock") // Replace with your icon name if it's not a system icon
-                                    .foregroundColor(.white) // Sets the color of the icon to white
+                                Image(systemName: "clock")
+                                    .foregroundColor(.white)
                                 
                                 Text("Estimated time 5 min.")
-                                    .foregroundColor(.white) // Sets the color of the text to white
+                                    .foregroundColor(.white)
                                     .font(.custom("Inter-Bold", size: 22))
-                                    // Additional styling can be applied here if needed
                             }
                             .padding(.bottom, 10)
                             
@@ -88,24 +57,41 @@ struct DiagnoseCarView: View {
                                 .padding(.bottom, 10)
                             HStack{
                                 Spacer()
-                                Button("Continue") {
-                                    // Handle continue action
-                                }
-                                .buttonStyle(GreenButtonStyle())
-                                .font(.custom("Inter-Bold", size: 18))
+                                    NavigationLink("Continue") { IssueDetailsView(viewModel: viewModel)}
+                                    .buttonStyle(GreenButtonStyle())
+                                    .font(.custom("Inter-Bold", size: 18))
+                                    .onAppear {UITableViewCell.appearance().backgroundColor = UIColor.clear
+                                        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "Inter-Bold", size: 34)!]
+                                        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: "Inter-Bold", size: 20)!]
+                                        // For selected segment
+                                        UISegmentedControl.appearance().setTitleTextAttributes(
+                                            [
+                                                .font: UIFont(name: "Inter-Bold", size: 16) ?? UIFont.systemFont(ofSize: 16),
+                                            ], for: .selected)
+
+                                        // For normal (unselected) segment
+                                        UISegmentedControl.appearance().setTitleTextAttributes(
+                                            [
+                                                .font: UIFont(name: "Inter-Medium", size: 12) ?? UIFont.systemFont(ofSize: 12),
+                                            ], for: .normal)
+}
+
+                                
+                                
                                 Spacer()
+                                
                             }
                             .padding(.bottom, 5)
                             
                         }
                         .padding()
                         .background(
-                            Image("car1") // Replace with your image name
-                                .resizable() // Make the image resizable
-                                .aspectRatio(contentMode: .fill) // Fill the space without distorting the image
-                                .edgesIgnoringSafeArea(.all) // Let the image extend to the screen edges
+                            Image("car1")
+                                .resizable() 
+                                .aspectRatio(contentMode: .fill)
+                                .edgesIgnoringSafeArea(.all)
                         )
-                        .frame(maxWidth: .infinity, maxHeight: .infinity) // Ensure VStack takes the full available width and height
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .cornerRadius(25)
                         
                         Text("Car Parts Categories")
@@ -150,44 +136,56 @@ struct DiagnoseCarView: View {
     }
 }
 
-struct WarningLightsSelectionView: View {
+
+
+
+struct IssueDetailsView: View {
     @ObservedObject var viewModel: DiagnoseCarViewmodel
-    let allWarningLights: [String]
-
+            
     var body: some View {
-        List {
-            ForEach(allWarningLights, id: \.self) { light in
-                MultipleSelectionRow(title: light, isSelected: self.viewModel.warningLights.contains(light)) {
-                    if self.viewModel.warningLights.contains(light) {
-                        self.viewModel.warningLights.removeAll { $0 == light }
-                    } else {
-                        self.viewModel.warningLights.append(light)
-                    }
-                }
+        Form {
+            Section(header: Text("Issue Description")) {
+                TextEditor(text: $viewModel.issueDescription)
+                    .frame(minHeight: 100) // Set a minimum height
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.clear, lineWidth: 1)
+                    )
             }
-        }
-        .navigationTitle("Warning Lights")
-    }
-}
-
-struct MultipleSelectionRow: View {
-    var title: String
-    var isSelected: Bool
-    var action: () -> Void
-    
-    var body: some View {
-        Button(action: self.action) {
-            HStack {
-                Text(self.title)
-                if self.isSelected {
+            Section(header: Text("Issue Frequency")) {
+                Picker("Issue Frequency", selection: $viewModel.issueFrequency) {
+                    Text("Frequently").tag("Frequently")
+                    Text("Sometimes").tag("Sometimes")
+                    Text("Rarely").tag("Rarely")
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .scaleEffect(x:1.1, y:1.1)
+            }
+            .listRowBackground(Color.clear)
+            Section{
+                HStack{
                     Spacer()
-                    Image(systemName: "checkmark")
+                    Button("Submit Form") {
+                        viewModel.submitForm()
+                    }
+                    .buttonStyle(GreenButtonStyle())
+                    .font(.custom("Rubik-Medium", size: 22))
+                    Spacer()
                 }
+                
             }
+            .listRowBackground(Color.clear)
+            
         }
-        .foregroundColor(self.isSelected ? Color.accentColor : Color.primary)
+        .navigationTitle("What is the issue?")
+        .font(.custom("Inter-Bold", size: 14))
+        
+        Spacer()
     }
 }
+
+
+
 
 struct GreenButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

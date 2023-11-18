@@ -10,6 +10,7 @@ import Apollo
 import Combine
 
 final class DiagnoseCarViewmodel: ObservableObject {
+        @Published var isNavigatingToIssueDetails = false
         @Published var carMake = ""
         @Published var carModel = ""
         @Published var carYear = ""
